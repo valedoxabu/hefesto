@@ -19,15 +19,17 @@
   "author": "Carlos Costa",
   "license": "ISC",
   "bin": {
-    "titan": "./titan-cli.js"
+    "titan": "./index.js"
   },
   "bugs": {
     "url": "https://github.com/caco-jr/Polaris/issues"
   },
   "homepage": "https://github.com/caco-jr/Polaris#readme",
   "dependencies": {
+    "chalk": "^2.4.1",
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
-    "commander": "^2.17.0"
+    "commander": "^2.17.0",
+    "typescript": "^3.0.1"
   }
 }

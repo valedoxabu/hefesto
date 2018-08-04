@@ -1,0 +1,33 @@
+{
+  "name": "titan",
+  "version": "1.0.0",
+  "description": "Project builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caco-jr/Polaris.git"
+  },
+  "keywords": [
+    "project",
+    "builder",
+    "boilerplate",
+    "template"
+  ],
+  "author": "Carlos Costa",
+  "license": "ISC",
+  "bin": {
+    "titan": "./titan-cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/caco-jr/Polaris/issues"
+  },
+  "homepage": "https://github.com/caco-jr/Polaris#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.17.0"
+  }
+}

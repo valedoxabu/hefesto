@@ -32,7 +32,6 @@ program
       case 'generate':
       case 'g':
         project.create(program);
-        project.createFile();
         break;
 
       default:
@@ -42,6 +41,6 @@ program
   .parse(process.argv);
 
 if (typeof cmdValue === 'undefined') {
-  console.error(chalk.red('Nenhum comando digitado.'));
+  console.error(chalk.red('Nenhum comando válido digitado.'));
   process.exit(1);
 }

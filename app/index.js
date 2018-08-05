@@ -3,22 +3,32 @@ const chalk = require('chalk');
 
 module.exports = {
   create(arguments) {
-    console.log('Esse ====>' + arguments.component);
+    const component = arguments.component || '';
 
-    this.createFolder(`./components/${arguments.component}`);
+    if (component) {
+      this.createFolder(`./components/${component}`);
 
-    // Para criar o all.sass na pasta
-    this.createFile(
-      'all.sass',
-      `@import "./${arguments.component}.sass"`,
-      `./components/${arguments.component}`
-    );
+      // Para criar o all.sass na pasta
+      this.createFile(
+        'all.sass',
+        `@import "./${component}.sass"`,
+        `./components/${component}`
+      );
 
-    this.createFile(
-      `${arguments.component}.sass`,
-      `$hello = ${arguments.component}`,
-      `./components/${arguments.component}`
-    );
+      this.createFile(
+        `${component}.sass`,
+        `$hello = ${component}`,
+        `./components/${component}`
+      );
+
+      this.readFile(`${component}.sass`, `./components/${component}`);
+
+      this.writeFile(
+        `all.sass`,
+        `\n@import "./${component}/all.sass"`,
+        `./components`
+      );
+    }
   },
 
   createFolder(path) {
@@ -41,21 +51,28 @@ module.exports = {
         return console.log(chalk.red(error));
       }
     });
+  },
+
+  readFile(file, path = '.') {
+    fs.readFile(`${path}/${file}`, 'utf8', (err, data) => {
+      if (err) throw err;
+      console.log(data);
+    });
+  },
+
+  writeFile(file, content = '', path = '.') {
+    fs.appendFile(
+      `${path}/${file}`,
+      content,
+      'utf8',
+      function(err) {
+        if (err) {
+          return console.log(err);
+        }
+
+        console.log('The file was saved!');
+      },
+      { flags: 'a+' }
+    );
   }
 };
-
-// const createFolder = path => {
-//   if (!fs.existsSync(path)) {
-//     fs.mkdirSync(path);
-//   }
-// };
-
-// const createFile = (file, content, path = '.') => {
-//   fs.writeFile(`${path}/${file}`, content, function(error) {
-//     if (error) {
-//       return console.log(error);
-//     }
-
-//     console.log('The file was saved!');
-//   });
-// };

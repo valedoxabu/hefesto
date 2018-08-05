@@ -1,36 +1,55 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
+const project = {
+  name: '',
+  type: 'sass'
+};
+
 module.exports = {
   create(arguments) {
     const component = arguments.component || '';
 
+    if (arguments.type) {
+      project.type = arguments.type;
+    }
+
+    console.log(process.cwd());
+    console.log(fs.readdirSync(`${__dirname}`));
+
     if (component) {
-      this.createFolder(`./components/${component}`);
+      this.createFolder(`./components`, component);
 
       // Para criar o all.sass na pasta
       this.createFile(
-        'all.sass',
-        `@import "./${component}.sass"`,
-        `./components/${component} \n`
+        '_all.sass',
+        `@import "./_${component}.${project.type}"\n`,
+        `./components/${component}`
       );
 
-      this.createFile(`${component}.sass`, '', `./components/${component}`);
+      this.createFile(
+        `_${component}.${project.type}`,
+        ` `,
+        `./components/${component}`
+      );
 
-      this.readFile(`${component}.sass`, `./components/${component}`);
+      // this.readFile(
+      //   `_${component}.${project.type}`,
+      //   `./components/${component}`
+      // );
 
       // Para importar o novo arquivo gerado
       this.writeFile(
-        `all.sass`,
+        `_all.sass`,
         `\n@import "./${component}/all.sass"`,
         `./components`
       );
     }
   },
 
-  createFolder(path) {
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path);
+  createFolder(path, name) {
+    if (!fs.existsSync(`${path}/${name}`)) {
+      fs.mkdirSync(`${path}/${name}`);
     } else {
       console.error(chalk.yellow('O componente já existe.'));
       return;
@@ -67,7 +86,7 @@ module.exports = {
           return console.log(err);
         }
 
-        console.log('The file was saved!');
+        console.log(`The ${file} was saved!`);
       },
       { flags: 'a+' }
     );

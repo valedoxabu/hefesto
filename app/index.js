@@ -12,17 +12,14 @@ module.exports = {
       this.createFile(
         'all.sass',
         `@import "./${component}.sass"`,
-        `./components/${component}`
+        `./components/${component} \n`
       );
 
-      this.createFile(
-        `${component}.sass`,
-        `$hello = ${component}`,
-        `./components/${component}`
-      );
+      this.createFile(`${component}.sass`, '', `./components/${component}`);
 
       this.readFile(`${component}.sass`, `./components/${component}`);
 
+      // Para importar o novo arquivo gerado
       this.writeFile(
         `all.sass`,
         `\n@import "./${component}/all.sass"`,
